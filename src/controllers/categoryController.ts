@@ -1,4 +1,4 @@
-import categoryService from "src/services/categoryService";
+import categoryService from "../services/categoryService";
 import { Request,Response } from "express";
 class CategoryController {
     constructor(){}
