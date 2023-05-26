@@ -5,6 +5,7 @@ import cors from "cors";
 import {connectDB} from "./data-source";
 
 const app = express()
+const jwt = require('jsonwebtoken')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

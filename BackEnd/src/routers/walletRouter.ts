@@ -1,4 +1,5 @@
 import {Router} from "express";
+
 import walletController from "../controllers/walletController";
 
 const walletRouter = Router();

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm"
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn} from "typeorm"
 import { Wallet } from "./wallet";
 
 @Entity()
@@ -14,8 +14,12 @@ export class User {
     password: string
 
     @Column()
+    age: number
+
+    @Column()
     job: string
 
-    @OneToMany( () => Wallet, (wallet) => wallet.id)
-    walletID: Wallet
+    @OneToMany( () => Wallet, (wallet) => wallet.user)
+    @JoinColumn()
+    wallet: Wallet[]
 }
