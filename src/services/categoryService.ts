@@ -1,8 +1,11 @@
+import {AppDataSource} from "../data-source";
+import {Category} from "../entity/category";
+
 class CategoryService {
   private categoryRepository;
 
   constructor() {
-    this.categoryRepository;
+    this.categoryRepository = AppDataSource.getRepository(Category);
   }
 
   getAll = async () => {

@@ -1,5 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne} from "typeorm"
 import { Category } from "./category";
+import {Wallet} from "./wallet";
+import walletController from "../controllers/walletController";
 
 @Entity()
 export class Transaction {
@@ -16,6 +18,11 @@ export class Transaction {
     @Column()
     note: string
 
-    @OneToMany ( () => Category, (category) => category.id)
+    @ManyToOne(()=>Category, (category)=>category.transaction)
     category: Category
+
+    @ManyToOne(()=>Wallet, (wallet)=>wallet.transaction)
+    wallet: Wallet
+
+
 }

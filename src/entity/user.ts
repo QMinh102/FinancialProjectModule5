@@ -16,6 +16,6 @@ export class User {
     @Column()
     job: string
 
-    @OneToMany( () => Wallet, (wallet) => wallet.id)
-    walletID: Wallet
+    @OneToMany( () => Wallet, (wallet) => wallet.user)
+    wallet: Wallet[]
 }
