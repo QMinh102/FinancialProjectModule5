@@ -7,8 +7,9 @@ import transactionRouter from "./transactionRouter";
 
 const router = Router();
 
+router.use("/user", userRouter);
+router.use("/wallet", walletRouter);
 router.use("/category", categoryRouter);
-router.use("/auth", userRouter);
-
+router.use("/transaction", transactionRouter);
 
 export default router;

@@ -1,11 +1,14 @@
 import {Router} from "express";
 
-import walletController from "../controllers/walletController";
+import WalletController from "../controllers/walletController";
 
 const walletRouter = Router();
 
-walletRouter.get('/',walletController.getAll)
-walletRouter.get('/one',walletController.getOne)
-walletRouter.post('/',walletController.create)
-walletRouter.put('/',walletController.update)
-walletRouter.delete('/',walletController.remove)
+walletRouter.get('/',WalletController.getAll)
+walletRouter.get('/one',WalletController.getOne)
+walletRouter.post('/',WalletController.create)
+walletRouter.put('/',WalletController.update)
+walletRouter.delete('/',WalletController.remove)
+
+
+export default walletRouter

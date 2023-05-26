@@ -14,7 +14,6 @@ class UserService {
     }
 
     checkUser = async (user) => {
-        console.log(user)
         let userFind = await this.userRepository.findOne({
             where: {
                 username: user.username,

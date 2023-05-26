@@ -14,10 +14,9 @@ class UserController {
     }
 
     login = async (req: Request, res: Response) => {
-        let check = await UserService.checkUser(req.body)
+        const check = await UserService.checkUser(req.body.username)
         res.status(200).json(check)
     }
-
 }
 
 export default new UserController()
