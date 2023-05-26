@@ -97,6 +97,21 @@ constructor() {
         return transactions;
     }
 
+    //limit check
+    getTotalExpense = async(walletId, userId) => {
+    let sql = `select sum(amount) as totalExpense from transaction inner join category on transaction.categoryId = category.id inner join wallet on transaction.walletId = wallet.id where walletId = ${walletId} and category.transactionType = 'expense'`
+    let totalExpense = await this.transactionRepository.query(sql);
+    return totalExpense[0].totalExpense;
+    }
+
+
+
+
+
+
+
+
+
 
 
 
