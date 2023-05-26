@@ -4,7 +4,7 @@ class WalletController{
     constructor(){}
 
     getAll = async (req:Request,res:Response)=>{
-        let idUser = "gettoken"
+        let idUser = "getToken"
         let allWallet= await WalletService.getAll(idUser);
         res.status(200).json(allWallet);
     }

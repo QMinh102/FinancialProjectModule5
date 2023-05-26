@@ -1,5 +1,6 @@
 import categoryService from "../services/categoryService";
 import { Request,Response } from "express";
+
 class CategoryController {
     constructor(){}
     getAll= async (req:Request,res:Response)=>{

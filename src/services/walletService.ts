@@ -1,8 +1,9 @@
+import {Wallet} from "../entity/wallet";
 
 class WalletService {
     private walletRepository
     constructor(){ 
-        this.walletRepository
+        this.walletRepository = Wallet;
     }
 
     getAll = async (idUser) =>{

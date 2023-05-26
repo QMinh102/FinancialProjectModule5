@@ -1,8 +1,10 @@
+import {Category} from "../entity/category";
+
 class CategoryService {
   private categoryRepository;
 
   constructor() {
-    this.categoryRepository;
+    this.categoryRepository = Category;
   }
 
   getAll = async () => {
