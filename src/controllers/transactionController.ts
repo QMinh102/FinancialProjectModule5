@@ -27,5 +27,41 @@ class TransactionController {
         await this.transactionService.deleteTransactionService(id)
         res.status(200).json({message: "delete transaction success !!"})
     }
+
+
+    // Tổng thu và chi của từng ví
+    getTotalIncomeAndExpenseOfOneWallet = async (req:Request,res:Response)=>{
+        let id = req.params.id;
+        let totalIncomeAndExpenseOfOneWallet = await this.transactionService. getTotalIncomeAndExpenseOfOneWalletService(id);
+        res.status(200).json(totalIncomeAndExpenseOfOneWallet);
+    }
+
+    //Tổng thu và chi total
+    getTotalIncomeAndExpense = async (req:Request,res:Response)=>{
+        let userId = req['decode'].userId
+        let totalIncomeAndExpenseOfOneWallet = await this.transactionService.getTotalIncomeAndExpenseService(userId);
+        res.status(200).json(totalIncomeAndExpenseOfOneWallet);
+    }
+
+    //Tổng thu và chi theo từng tháng của năm
+    getTotalIncomeAndExpenseByMonth = async (req:Request,res:Response)=>{
+        let year = req.query.year
+        let userId = req['decode'].userId
+        let totalIncomeAndExpenseByMonth = await this.transactionService.getTotalIncomeAndExpenseByMonthService(year, userId)
+        res.status(200).json(totalIncomeAndExpenseByMonth);
+    }
+
+    // Tổng thu và chi theo từng ví
+
+    getTotalIncomeAndExpenseByEachWallet = async (req:Request,res:Response)=>{
+        let userId = req['decode'].userId
+        let totalIncomeAndExpenseByWallet = await this.transactionService.getTotalIncomeAndExpenseByEachWalletService(userId)
+        res.status(200).json(totalIncomeAndExpenseByWallet);
+    }
+
+
+
+
+
 }
 export default new TransactionController()
