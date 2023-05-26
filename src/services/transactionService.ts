@@ -8,8 +8,6 @@ constructor() {
     this.transactionRepository = AppDataSource.getRepository(Transaction)
 }
 
-
-
     addTransactionService = async (transaction) => {
         let newTransaction = await this.transactionRepository.save(transaction);
         return newTransaction
@@ -37,16 +35,17 @@ constructor() {
 
     //Tổng thu và chi của từng ví
     getTotalIncomeAndExpenseOfOneWalletService = async (id) =>{
-        let sql = `select wallet.name, sum(case when category.transactionType = \'income\' then transaction.amount else 0 end ) as totalIncome, sum(case when category.transactionType = \'expense\' then transaction.amount else 0 end) as totalExpense from transaction inner join wallet on transaction.walletId = wallet.id inner join category on transaction.categoryId = category.id where wallet.id = wallet.id = ${id}`
+        let sql = `select sum(case when category.transactionType = 'income' then transaction.amount else 0 end ) as totalIncome, sum(case when category.transactionType = 'expense' then transaction.amount else 0 end) as totalExpense from transaction inner join wallet on transaction.walletId = wallet.id inner join category on transaction.categoryId = category.id where wallet.id = ${id}`
         let totalIncomeAndExpenseOfOneWallet = await this.transactionRepository.query(sql);
-        return totalIncomeAndExpenseOfOneWallet;
+        return totalIncomeAndExpenseOfOneWallet[0];
     }
 
     //Tổng thu và chi total
     getTotalIncomeAndExpenseService = async (userId)=>{
+     console.log(userId)
      let sql = `select sum(case when category.transactionType = 'income' then transaction.amount else 0 end ) as totalIncome, sum(case when category.transactionType = 'expense' then transaction.amount else 0 end) as totalExpense from transaction inner join wallet on transaction.walletId = wallet.id inner join category on transaction.categoryId = category.id where wallet.userId = ${userId}`
      let totalIncomeAndExpense = await this.transactionRepository.query(sql);
-     return totalIncomeAndExpense
+     return totalIncomeAndExpense[0]
     }
 
     //Tổng thu và chi theo từng tháng của năm
@@ -63,6 +62,44 @@ constructor() {
         let totalIncomeAndExpenseByEachWallet = await this.transactionRepository.query(sql);
         return totalIncomeAndExpenseByEachWallet;
     }
+
+
+    // Tìm kiếm transaction theo khoảng ngày
+
+    getTransactionBetweenTwoDatesService = async (userId, startDate, endDate) =>{
+        let sql = `SELECT * FROM transaction INNER JOIN category ON transaction.categoryId = category.id INNER JOIN wallet ON transaction.walletId = wallet.id WHERE (transaction.date BETWEEN ${startDate} AND ${endDate}) AND wallet.userId = ${userId}`
+        let transactions = await this.transactionRepository.query(sql);
+        return transactions;
+    }
+
+
+    //Tìm kiếm transaction theo note
+    getTransactionByNoteService = async (userId, note) => {
+        let sql = "SELECT * FROM transaction INNER JOIN category ON transaction.categoryId = category.id INNER JOIN wallet ON transaction.walletId = wallet.id WHERE transaction.note LIKE ? AND wallet.userId = ?";
+        let transactions = await this.transactionRepository.query(sql, [`%${note}%`, userId]);
+        return transactions;
+    }
+
+    //Tim kiem theo category
+
+    getTransactionByCategoryService = async (userId,categoryId) => {
+        let sql = `SELECT * FROM transaction INNER JOIN category ON transaction.categoryId = category.id INNER JOIN wallet ON transaction.walletId = wallet.id WHERE category.id = ${categoryId} AND wallet.userId = ${userId}`
+        let transactions = await this.transactionRepository.query(sql);
+        return transactions;
+    }
+
+
+    //Tim kiem theo wallet
+
+    getTransactionByWalletService = async (userId,walletId) => {
+        let sql = `SELECT * FROM transaction INNER JOIN category ON transaction.categoryId = category.id INNER JOIN wallet ON transaction.walletId = wallet.id WHERE wallet.id = ${walletId} AND wallet.userId = ${userId}`
+        let transactions = await this.transactionRepository.query(sql);
+        return transactions;
+    }
+
+
+
+
 
 
 

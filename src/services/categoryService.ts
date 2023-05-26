@@ -27,6 +27,10 @@ class CategoryService {
   remove = async (id) => {
     await this.categoryRepository.delete(id);
   };
+
+
+
+
 }
 
 export default new CategoryService();

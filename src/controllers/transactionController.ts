@@ -39,14 +39,15 @@ class TransactionController {
     //Tổng thu và chi total
     getTotalIncomeAndExpense = async (req:Request,res:Response)=>{
         let userId = req['decode'].userId
-        let totalIncomeAndExpenseOfOneWallet = await this.transactionService.getTotalIncomeAndExpenseService(userId);
-        res.status(200).json(totalIncomeAndExpenseOfOneWallet);
+        let totalIncomeAndExpense= await this.transactionService.getTotalIncomeAndExpenseService(userId);
+        res.status(200).json(totalIncomeAndExpense);
     }
 
     //Tổng thu và chi theo từng tháng của năm
     getTotalIncomeAndExpenseByMonth = async (req:Request,res:Response)=>{
         let year = req.query.year
         let userId = req['decode'].userId
+        // let userId = 1
         let totalIncomeAndExpenseByMonth = await this.transactionService.getTotalIncomeAndExpenseByMonthService(year, userId)
         res.status(200).json(totalIncomeAndExpenseByMonth);
     }
@@ -54,10 +55,50 @@ class TransactionController {
     // Tổng thu và chi theo từng ví
 
     getTotalIncomeAndExpenseByEachWallet = async (req:Request,res:Response)=>{
-        let userId = req['decode'].userId
+        console.log(4)
+        // let userId = req['decode'].userId
+        let userId = 1;
         let totalIncomeAndExpenseByWallet = await this.transactionService.getTotalIncomeAndExpenseByEachWalletService(userId)
         res.status(200).json(totalIncomeAndExpenseByWallet);
     }
+    //Tim kiem trong khoang ngay
+    getTransactionBetweenTwoDates = async (req:Request,res:Response)=>{
+      let userId = req['decode'].userId;
+      let startDate = req.query.startDate;
+      let endDate = req.query.endDate;
+      let transactionsBetweenTwoDates = await this.transactionService.getTransactionBetweenTwoDatesService(userId, startDate, endDate);
+      res.status(200).json(transactionsBetweenTwoDates);
+    }
+
+    //Tim kiem theo note cua transaction
+    getTransactionByNote = async (req:Request,res:Response)=>{
+        let userId = req['decode'].userId;
+        let note = req.query.note
+        let transactionsByNote = await this.transactionService.getTransactionByNoteService(userId, note);
+        res.status(200).json(transactionsByNote);
+    }
+
+    //Tim kiem theo category
+    getTransactionByCategory = async (req:Request,res:Response)=>{
+        let userId = req['decode'].userId;
+        let categoryId = req.params.id;
+        let transactions = await this.transactionService.getTransactionByCategoryService(userId, categoryId)
+        res.status(200).json(transactions);
+    }
+
+
+    //Tim kiem theo wallet
+    getTransactionByWallet = async (req:Request,res:Response)=>{
+        let userId = req['decode'].userId;
+        let walletId = req.params.id;
+        let transactions = await this.transactionService.getTransactionByWalletService(userId, walletId)
+        res.status(200).json(transactions);
+    }
+
+
+
+
+
 
 
 
