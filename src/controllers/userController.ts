@@ -17,7 +17,7 @@ class UserController {
         let user = req.body
         let userCheck = await this.userService.checkUser(req.body)
         if (userCheck) {
-            res.status(200).json('Đã có tài khoản')
+            res.status(200).json('Username already exits')
         } else {
             user.password = await bcrypt.hash(user.password, 10)
             let newUser = await this.userService.createNewUser(user)
