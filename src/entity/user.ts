@@ -13,7 +13,7 @@ export class User {
     @Column()
     password: string
 
-    @Column()
+    @Column({ default: 'default' })
     job: string
 
     @OneToMany( () => Wallet, (wallet) => wallet.user)
