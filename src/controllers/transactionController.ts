@@ -73,8 +73,34 @@ class TransactionController {
         let year = req.query.year
         let userId = req['decode'].userId
         // let userId = 1
-        let totalIncomeAndExpenseByMonth = await this.transactionService.getTotalIncomeAndExpenseByMonthService(year, userId)
-        res.status(200).json(totalIncomeAndExpenseByMonth);
+        let newData = [];
+        await this.transactionService.getTotalIncomeAndExpenseByMonthService(year, userId).then(
+            (data)=>{
+                for (let i = 1; i < 13; i++) {
+                    let found = false;
+                    for (let j = 0; j < data.length; j++) {
+                        let month = +data[j].month_year.substring(0,2);
+                        if (month === i) {
+                            newData.push({
+                                "month": i,
+                                "totalIncome": data[j].totalIncome,
+                                "totalExpense": data[j].totalExpense
+                            });
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        newData.push({
+                            "month": i,
+                            "totalIncome": 0,
+                            "totalExpense": 0
+                        });
+                    }
+                }
+            }
+        );
+        res.status(200).json(newData);
     }
 
     // Tổng thu và chi theo từng ví
