@@ -1,8 +1,11 @@
+import {AppDataSource} from "../data-source";
+import {Category} from "../entity/category";
+
 class CategoryService {
   private categoryRepository;
 
   constructor() {
-    this.categoryRepository;
+    this.categoryRepository = AppDataSource.getRepository(Category);
   }
 
   getAll = async () => {
@@ -24,6 +27,10 @@ class CategoryService {
   remove = async (id) => {
     await this.categoryRepository.delete(id);
   };
+
+
+
+
 }
 
 export default new CategoryService();

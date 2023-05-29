@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne} from "typeorm"
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany} from "typeorm"
 import { Transaction } from "./transaction";
 
 @Entity()
@@ -16,6 +16,6 @@ export class Category {
     @Column()
     transactionType: string
 
-    @ManyToOne ( () => Transaction, (transaction) => transaction.category)
-    transaction: Transaction
+    @OneToMany ( () => Transaction, (transaction) => transaction.category)
+    transaction: Transaction[]
 }
