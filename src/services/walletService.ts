@@ -1,9 +1,13 @@
+import {AppDataSource} from "../data-source";
+import {Wallet} from "../entity/wallet";
+import {query} from "express";
 
 class WalletService {
-    private walletRepository
+    private walletRepository;
     constructor(){ 
-        this.walletRepository
+        this.walletRepository = AppDataSource.getRepository(Wallet)
     }
+
 
     getAll = async (idUser) =>{
         return await this.walletRepository.find({
@@ -29,6 +33,19 @@ class WalletService {
     remove = async (id) =>{
         await this.walletRepository.delete(id)
     }
+
+    getTotalOfWallet = async (walletId) =>{
+        let sql = `select total from wallet where id = ${walletId}`
+        let totalOfWallet = await this.walletRepository.query(sql);
+        return totalOfWallet[0].total
+    }
+
+
+
+
+
+
+
 }
 
 export default new WalletService();
