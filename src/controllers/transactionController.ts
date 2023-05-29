@@ -90,6 +90,7 @@ class TransactionController {
                             break;
                         }
                     }
+                    //if (found === false)
                     if (!found) {
                         newData.push({
                             "month": i,

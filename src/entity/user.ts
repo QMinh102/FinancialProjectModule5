@@ -13,6 +13,9 @@ export class User {
     @Column()
     password: string
 
+    @Column({ default: 'image.jpg' })
+    image: string
+
     @Column({ default: 'default' })
     job: string
 
