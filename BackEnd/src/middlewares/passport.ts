@@ -3,7 +3,7 @@ import {Strategy as GoogleStrategy} from "passport-google-oauth20";
 import userService from "../services/userService";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import {SECRET} from '../middlewares/auth'
+import {SECRET} from './auth'
 
 // import {Strategy as FacebookStrategy} from "passport-facebook";
 
