@@ -1,23 +1,31 @@
-import express from "express";
-import cookieParser from "cookie-parser";
+import express from 'express';
 import bodyParser from "body-parser";
 import router from "./routers";
-import cors from "cors";
-import {connectDB} from "./data-source";
-
+import {AppDataSource} from "./data-source";
+import cors from 'cors';
+import session from "express-session";
+import passport from "passport";
 const app = express()
+
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
+AppDataSource.initialize().then(()=>{
+    console.log('Connect database success')
+})
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(cookieParser(process.env.USER_CODE_SECRET))
-
-connectDB().then(() => {
-    console.log('Connect Database Succeeded')
-})
-
 app.use(cors());
-
 app.use('', router)
+
 app.listen(3001, () => {
     console.log('Server is running')
 })

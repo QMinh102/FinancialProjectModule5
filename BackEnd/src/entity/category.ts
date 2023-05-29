@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn, OneToMany} from "typeorm"
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany} from "typeorm"
 import { Transaction } from "./transaction";
 
 @Entity()

@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn} from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm"
 import { Wallet } from "./wallet";
 
 @Entity()
@@ -13,13 +13,12 @@ export class User {
     @Column()
     password: string
 
-    @Column()
-    age: number
+    @Column({ default: 'image.jpg' })
+    image: string
 
-    @Column()
+    @Column({ default: 'default' })
     job: string
 
     @OneToMany( () => Wallet, (wallet) => wallet.user)
-    @JoinColumn()
     wallet: Wallet[]
 }
