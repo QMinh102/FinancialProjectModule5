@@ -5,12 +5,12 @@ import {auth} from "../middlewares/auth";
 
 const walletRouter = Router();
 // walletRouter.use(auth)
-walletRouter.get('/:id',walletController.getOne);
-walletRouter.delete('/',walletController.remove);
+
+walletRouter.delete('/:id',walletController.remove);
 walletRouter.put('/:id',walletController.update);
-walletRouter.get('/income-expenditure-comparison/:id', transactionController.getTotalIncomeAndExpenseOfOneWallet)
+walletRouter.get('/income-expenditure-comparison/:id', transactionController.getTotalIncomeAndExpenseOfOneWallet);
 walletRouter.get('/transactions/:id', transactionController.getAllTransaction);
-walletRouter.get('/transaction/:id', transactionController.getOneTransaction)
+walletRouter.get('/transactions/transaction/:id', transactionController.getOneTransaction)
 walletRouter.put('/transaction/:id',transactionController.updateOneTransaction)
 walletRouter.post('/transaction/:id', transactionController.addTransaction)
 walletRouter.delete('/transaction', transactionController.deleteTransaction)
