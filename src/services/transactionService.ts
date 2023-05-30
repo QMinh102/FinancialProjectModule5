@@ -27,6 +27,19 @@ constructor() {
         });
         return transaction;
     }
+
+
+    getAllTransactionService = async(idWallet) =>{
+        let transactions = await this.transactionRepository.find({
+            where: {
+                idWallet:idWallet
+            }
+        });
+        return transactions;
+    }
+
+
+
     updateOneTransactionService = async(id, updateTransaction ) => {
         await this.transactionRepository.update({id: id}, updateTransaction)
     }

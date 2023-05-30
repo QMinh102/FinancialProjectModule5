@@ -7,7 +7,7 @@ class CategoryController {
         res.status(200).json(categoryList)
     }
     getOne= async (req:Request,res:Response)=>{
-        let id = req.query.id
+        let id = req.params.id
         let category = await categoryService.getOne(id)
         res.status(200).json(category)
     }
@@ -16,12 +16,12 @@ class CategoryController {
         res.status(200).json({message: "create category success !!"})
     }
     update = async (req:Request,res:Response)=>{
-        let id = req.query.id
+        let id = req.params.id
         await categoryService.update(id,req.body)
         res.status(200).json({message: "update category success !!"})
     }
     remove = async (req:Request,res:Response)=>{
-        let id = req.query.id
+        let id = req.params.id
         await categoryService.remove(id)
         res.status(200).json({message: "delete category success !!"})
     }

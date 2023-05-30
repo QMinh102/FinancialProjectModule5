@@ -1,13 +1,18 @@
 import {Router} from "express";
-import {auth} from '../middlewares/auth'
 import walletController from "../controllers/walletController";
+import transactionController from "../controllers/transactionController";
+import {auth} from "../middlewares/auth";
 
 const walletRouter = Router();
-walletRouter.use(auth)
-walletRouter.get('/',walletController.getAll)
-walletRouter.get('/one',walletController.getOne)
-walletRouter.post('/',walletController.create)
-walletRouter.put('/',walletController.update)
-walletRouter.delete('/',walletController.remove)
+// walletRouter.use(auth)
+walletRouter.get('/:id',walletController.getOne);
+walletRouter.delete('/',walletController.remove);
+walletRouter.put('/:id',walletController.update);
+walletRouter.get('/income-expenditure-comparison/:id', transactionController.getTotalIncomeAndExpenseOfOneWallet)
+walletRouter.get('/transactions/:id', transactionController.getAllTransaction);
+walletRouter.get('/transaction/:id', transactionController.getOneTransaction)
+walletRouter.put('/transaction/:id',transactionController.updateOneTransaction)
+walletRouter.post('/transaction/:id', transactionController.addTransaction)
+walletRouter.delete('/transaction', transactionController.deleteTransaction)
 export default walletRouter;
 
