@@ -9,7 +9,6 @@ userRouter.post('/login', userController.login);
 userRouter.get('/google', passportGoogle.authenticate('google', {
     scope: ['profile', 'email']
 }))
-
 userRouter.get('/google/callback', passportGoogle.authenticate('google'), (req, res)=>{
     console.log(1)
     const token = req.user['token']
