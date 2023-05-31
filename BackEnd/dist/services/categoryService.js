@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const data_source_1 = require("../data-source");
 const category_1 = require("../entity/category");
 class CategoryService {
     constructor() {
@@ -18,7 +19,7 @@ class CategoryService {
         this.remove = async (id) => {
             await this.categoryRepository.delete(id);
         };
-        this.categoryRepository = category_1.Category;
+        this.categoryRepository = data_source_1.AppDataSource.getRepository(category_1.Category);
     }
 }
 exports.default = new CategoryService();
