@@ -38,10 +38,6 @@ class WalletService {
         return totalOfWallet[0].total
     }
 
-    updateTotal = async (walletId,money)=>{
-
-    }
-
 
 }
 
