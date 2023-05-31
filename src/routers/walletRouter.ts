@@ -3,7 +3,7 @@ import {auth} from '../middlewares/auth'
 import walletController from "../controllers/walletController";
 
 const walletRouter = Router();
-walletRouter.use(auth)
+// walletRouter.use(auth)
 walletRouter.get('/',walletController.getAll)
 walletRouter.get('/one',walletController.getOne)
 walletRouter.post('/',walletController.create)

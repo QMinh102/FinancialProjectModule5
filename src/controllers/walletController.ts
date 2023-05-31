@@ -1,6 +1,6 @@
 import WalletService from "../services/walletService";
 import { Request,Response } from "express";
-class WalletController{
+class WalletController {
     constructor(){}
 
     getAll = async (req:Request,res:Response)=>{
