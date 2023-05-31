@@ -27,16 +27,15 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], User.prototype, "age", void 0);
+    (0, typeorm_1.Column)({ default: 'image.jpg' }),
+    __metadata("design:type", String)
+], User.prototype, "image", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ default: 'default' }),
     __metadata("design:type", String)
 ], User.prototype, "job", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => wallet_1.Wallet, (wallet) => wallet.user),
-    (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", Array)
 ], User.prototype, "wallet", void 0);
 User = __decorate([

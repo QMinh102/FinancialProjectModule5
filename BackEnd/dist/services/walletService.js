@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const data_source_1 = require("../data-source");
 const wallet_1 = require("../entity/wallet");
 class WalletService {
     constructor() {
@@ -23,7 +24,12 @@ class WalletService {
         this.remove = async (id) => {
             await this.walletRepository.delete(id);
         };
-        this.walletRepository = wallet_1.Wallet;
+        this.getTotalOfWallet = async (walletId) => {
+            let sql = `select total from wallet where id = ${walletId}`;
+            let totalOfWallet = await this.walletRepository.query(sql);
+            return totalOfWallet[0].total;
+        };
+        this.walletRepository = data_source_1.AppDataSource.getRepository(wallet_1.Wallet);
     }
 }
 exports.default = new WalletService();

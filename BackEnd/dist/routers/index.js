@@ -8,6 +8,7 @@ const userRouter_1 = __importDefault(require("./userRouter"));
 const walletRouter_1 = __importDefault(require("./walletRouter"));
 const categoryRouter_1 = __importDefault(require("./categoryRouter"));
 const transactionRouter_1 = __importDefault(require("./transactionRouter"));
+x;
 const router = (0, express_1.Router)();
 router.use("/user", userRouter_1.default);
 router.use("/wallet", walletRouter_1.default);

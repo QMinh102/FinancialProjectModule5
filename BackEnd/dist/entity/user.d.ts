@@ -3,7 +3,7 @@ export declare class User {
     id: number;
     username: string;
     password: string;
-    age: number;
+    image: string;
     job: string;
     wallet: Wallet[];
 }
