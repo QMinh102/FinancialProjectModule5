@@ -13,7 +13,7 @@ class CategoryService {
   };
 
   getOne = async (id) => {
-    return await this.categoryRepository.findOneBy({ id });
+    return await this.categoryRepository.findOneBy({id});
   };
 
   create = async (newCategory) => {
@@ -27,6 +27,7 @@ class CategoryService {
   remove = async (id) => {
     await this.categoryRepository.delete(id);
   };
+
 
 
 
