@@ -9,6 +9,11 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const auth_1 = require("../middlewares/auth");
 class UserController {
     constructor() {
+        this.getUser = async (req, res) => {
+            let id = "token . id ";
+            let user = await this.userService.getUser(id);
+            res.status(200).json(user);
+        };
         this.signup = async (req, res) => {
             let user = req.body;
             let userCheck = await this.userService.checkUser(req.body);
