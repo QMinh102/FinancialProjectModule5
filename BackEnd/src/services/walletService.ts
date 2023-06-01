@@ -4,46 +4,44 @@ import {query} from "express";
 
 class WalletService {
     private walletRepository;
-    constructor(){ 
+
+    constructor() {
         this.walletRepository = AppDataSource.getRepository(Wallet)
     }
 
 
-    getAll = async (idUser) =>{
+    getAll = async (idUser) => {
         return await this.walletRepository.find({
-            where:{userId : idUser},
-            relations: {user:true}
+            where: {userId: idUser},
+            relations: {user: true}
         })
     }
 
-    getOne = async (id) =>{
+    getOne = async (id) => {
         return await this.walletRepository.find({
-            where:{id:id}
+            where: {id: id}
         })
     }
 
-    create = async (newWallet)=>{
+    create = async (newWallet) => {
         await this.walletRepository.save(newWallet);
     }
 
-    update = async (id,newWallet)=>{
-        await this.walletRepository.update({id:id},newWallet);
+    update = async (id, newWallet) => {
+        await this.walletRepository.update({id: id}, newWallet);
     }
 
-    remove = async (id) =>{
+    remove = async (id) => {
         await this.walletRepository.delete(id)
     }
 
-    getTotalOfWallet = async (walletId) =>{
-        let sql = `select total from wallet where id = ${walletId}`
+    getTotalOfWallet = async (walletId) => {
+        let sql = `select total
+                   from wallet
+                   where id = ${walletId}`
         let totalOfWallet = await this.walletRepository.query(sql);
         return totalOfWallet[0].total
     }
-
-
-
-
-
 
 
 }

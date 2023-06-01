@@ -4,6 +4,7 @@ declare class TransactionService {
     addTransactionService: (transaction: any) => Promise<any>;
     deleteTransactionService: (id: any) => Promise<void>;
     getOneTransactionService: (id: any) => Promise<any>;
+    getAllTransactionService: (idWallet: any) => Promise<any>;
     updateOneTransactionService: (id: any, updateTransaction: any) => Promise<void>;
     getTotalIncomeAndExpenseOfOneWalletService: (id: any) => Promise<any>;
     getTotalIncomeAndExpenseService: (userId: any) => Promise<any>;

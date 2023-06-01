@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, JoinColumn} from "typeorm"
+import {Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, JoinColumn, OneToMany} from "typeorm"
 import { User } from "./user";
 import {Transaction} from "./transaction";
 
@@ -18,7 +18,7 @@ export class Wallet {
     @JoinColumn()
     user: User[]
 
-    @ManyToOne( () => Transaction, (transaction) => transaction.wallet)
+    @OneToMany( () => Transaction, (transaction) => transaction.wallet)
     @JoinColumn()
     transaction: Transaction[]
 }

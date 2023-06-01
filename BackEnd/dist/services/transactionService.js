@@ -23,6 +23,14 @@ class TransactionService {
             });
             return transaction;
         };
+        this.getAllTransactionService = async (idWallet) => {
+            let transactions = await this.transactionRepository.find({
+                where: {
+                    idWallet: idWallet
+                }
+            });
+            return transactions;
+        };
         this.updateOneTransactionService = async (id, updateTransaction) => {
             await this.transactionRepository.update({ id: id }, updateTransaction);
         };

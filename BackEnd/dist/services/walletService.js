@@ -25,7 +25,9 @@ class WalletService {
             await this.walletRepository.delete(id);
         };
         this.getTotalOfWallet = async (walletId) => {
-            let sql = `select total from wallet where id = ${walletId}`;
+            let sql = `select total
+                   from wallet
+                   where id = ${walletId}`;
             let totalOfWallet = await this.walletRepository.query(sql);
             return totalOfWallet[0].total;
         };

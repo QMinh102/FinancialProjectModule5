@@ -25,7 +25,7 @@ app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use((0, cors_1.default)());
 app.use('', routers_1.default);
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log('Server is running');
 });
 //# sourceMappingURL=index.js.map

@@ -1,8 +1,6 @@
 import {User} from "../entity/user";
 import {AppDataSource} from "../data-source";
 
-
-
 class UserService {
     private userRepository;
 
@@ -11,11 +9,11 @@ class UserService {
         this.userRepository = AppDataSource.getRepository(User)
     }
 
-
     createNewUser = async (user) => {
         let newUser = await this.userRepository.save(user)
         return newUser
     }
+
     checkUser = async (user) => {
         let userFind = await this.userRepository.findOne({
             where: {

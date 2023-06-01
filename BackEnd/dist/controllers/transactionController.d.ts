@@ -2,7 +2,9 @@ import { Request, Response } from "express";
 declare class TransactionController {
     private transactionService;
     private walletService;
+    private categoryService;
     constructor();
+    getAllTransaction: (req: Request, res: Response) => Promise<void>;
     getOneTransaction: (req: Request, res: Response) => Promise<void>;
     addTransaction: (req: Request, res: Response) => Promise<void>;
     updateOneTransaction: (req: Request, res: Response) => Promise<void>;
