@@ -12,7 +12,11 @@ class UserController {
         this.userService = userService;
     }
 
-
+    getUser = async (req:Request, res:Response) => {
+        let id = "token . id "
+        let user = await this.userService.getUser(id)
+        res.status(200).json(user)
+    }
     signup = async (req: Request, res: Response) => {
         let user = req.body
         let userCheck = await this.userService.checkUser(req.body)
