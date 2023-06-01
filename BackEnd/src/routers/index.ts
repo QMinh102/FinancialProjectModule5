@@ -1,0 +1,11 @@
+import { Router } from "express";
+import categoryRouter from "./categoryRouter";
+import userRouter from "./userRouter";
+import walletRouter from "./walletRouter";
+import homeRouter from "./homeRouter";
+const router = Router();
+router.use("/category", categoryRouter);
+router.use('/wallet', walletRouter);
+router.use('/home', homeRouter)
+router.use('/auth', userRouter);
+export default router;
