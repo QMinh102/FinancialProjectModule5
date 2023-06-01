@@ -5,10 +5,14 @@ const wallet_1 = require("../entity/wallet");
 class WalletService {
     constructor() {
         this.getAll = async (idUser) => {
-            return await this.walletRepository.find({
-                where: { userId: idUser },
-                relations: { user: true }
-            });
+            console.log(await this.walletRepository.find({
+                relations: { user: true },
+                where: {
+                    user: {
+                        id: idUser
+                    }
+                }
+            }));
         };
         this.getOne = async (id) => {
             return await this.walletRepository.find({

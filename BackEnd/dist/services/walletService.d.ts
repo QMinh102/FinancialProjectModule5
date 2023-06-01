@@ -1,7 +1,7 @@
 declare class WalletService {
     private walletRepository;
     constructor();
-    getAll: (idUser: any) => Promise<any>;
+    getAll: (idUser: any) => Promise<void>;
     getOne: (id: any) => Promise<any>;
     create: (newWallet: any) => Promise<void>;
     update: (id: any, newWallet: any) => Promise<void>;

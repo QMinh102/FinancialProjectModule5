@@ -9,12 +9,17 @@ class WalletService {
         this.walletRepository = AppDataSource.getRepository(Wallet)
     }
 
-
     getAll = async (idUser) => {
-        return await this.walletRepository.find({
-            where: {userId: idUser},
-            relations: {user: true}
-        })
+        console.log(await this.walletRepository.find({
+                relations: {user: true},
+                where: {
+                    user: {
+                        id: idUser
+                    }
+                }
+            }
+        ))
+
     }
 
     getOne = async (id) => {
