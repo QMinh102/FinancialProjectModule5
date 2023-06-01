@@ -16,7 +16,9 @@ class UserController {
         };
         this.signup = async (req, res) => {
             let user = req.body;
+            console.log(user);
             let userCheck = await this.userService.checkUser(req.body);
+            console.log(userCheck);
             if (userCheck) {
                 res.status(200).json('Username already exits');
             }

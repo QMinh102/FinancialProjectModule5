@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+export declare const getToken: (req: Request, res: Response) => Promise<any>;
 declare class WalletController {
     constructor();
     getAll: (req: Request, res: Response) => Promise<void>;

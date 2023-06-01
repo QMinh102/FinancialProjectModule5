@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const transactionService_1 = __importDefault(require("../services/transactionService"));
 const walletService_1 = __importDefault(require("../services/walletService"));
 const categoryService_1 = __importDefault(require("../services/categoryService"));
+const walletController_1 = require("./walletController");
 class TransactionController {
     constructor() {
         this.getAllTransaction = async (req, res) => {
@@ -88,13 +89,13 @@ class TransactionController {
             res.status(200).json(totalIncomeAndExpenseOfOneWallet);
         };
         this.getTotalIncomeAndExpense = async (req, res) => {
-            let userId = req['decode'].userId;
+            let userId = await (0, walletController_1.getToken)(req, res);
             let totalIncomeAndExpense = await this.transactionService.getTotalIncomeAndExpenseService(userId);
             res.status(200).json(totalIncomeAndExpense);
         };
         this.getTotalIncomeAndExpenseByMonth = async (req, res) => {
             let year = req.query.year;
-            let userId = req['decode'].userId;
+            let userId = await (0, walletController_1.getToken)(req, res);
             let newData = [];
             await this.transactionService.getTotalIncomeAndExpenseByMonthService(year, userId).then((data) => {
                 for (let i = 1; i < 13; i++) {
@@ -124,31 +125,31 @@ class TransactionController {
         };
         this.getTotalIncomeAndExpenseByEachWallet = async (req, res) => {
             console.log(4);
-            let userId = req['decode'].userId;
+            let userId = await (0, walletController_1.getToken)(req, res);
             let totalIncomeAndExpenseByWallet = await this.transactionService.getTotalIncomeAndExpenseByEachWalletService(userId);
             res.status(200).json(totalIncomeAndExpenseByWallet);
         };
         this.getTransactionBetweenTwoDates = async (req, res) => {
-            let userId = req['decode'].userId;
+            let userId = await (0, walletController_1.getToken)(req, res);
             let startDate = req.query.startDate;
             let endDate = req.query.endDate;
             let transactionsBetweenTwoDates = await this.transactionService.getTransactionBetweenTwoDatesService(userId, startDate, endDate);
             res.status(200).json(transactionsBetweenTwoDates);
         };
         this.getTransactionByNote = async (req, res) => {
-            let userId = req['decode'].userId;
+            let userId = await (0, walletController_1.getToken)(req, res);
             let note = req.query.note;
             let transactionsByNote = await this.transactionService.getTransactionByNoteService(userId, note);
             res.status(200).json(transactionsByNote);
         };
         this.getTransactionByCategory = async (req, res) => {
-            let userId = req['decode'].userId;
+            let userId = await (0, walletController_1.getToken)(req, res);
             let categoryId = req.params.id;
             let transactions = await this.transactionService.getTransactionByCategoryService(userId, categoryId);
             res.status(200).json(transactions);
         };
         this.getTransactionByWallet = async (req, res) => {
-            let userId = req['decode'].userId;
+            let userId = await (0, walletController_1.getToken)(req, res);
             let walletId = req.params.id;
             let transactions = await this.transactionService.getTransactionByWalletService(userId, walletId);
             res.status(200).json(transactions);

@@ -5,17 +5,12 @@ const wallet_1 = require("../entity/wallet");
 class WalletService {
     constructor() {
         this.getAll = async (idUser) => {
-            console.log(await this.walletRepository.find({
-                relations: { user: true },
-                where: {
-                    user: {
-                        id: idUser
-                    }
-                }
-            }));
+            return await this.walletRepository.find({
+                where: { user: { id: idUser } }
+            });
         };
         this.getOne = async (id) => {
-            return await this.walletRepository.find({
+            return await this.walletRepository.findOne({
                 where: { id: id }
             });
         };
@@ -23,15 +18,13 @@ class WalletService {
             await this.walletRepository.save(newWallet);
         };
         this.update = async (id, newWallet) => {
-            await this.walletRepository.update({ id: id }, newWallet);
+            await this.walletRepository.update({ id: +id }, newWallet);
         };
         this.remove = async (id) => {
-            await this.walletRepository.delete(id);
+            await this.walletRepository.delete(+id);
         };
         this.getTotalOfWallet = async (walletId) => {
-            let sql = `select total
-                   from wallet
-                   where id = ${walletId}`;
+            let sql = `select total from wallet where id = ${walletId}`;
             let totalOfWallet = await this.walletRepository.query(sql);
             return totalOfWallet[0].total;
         };

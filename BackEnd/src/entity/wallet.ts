@@ -18,7 +18,6 @@ export class Wallet {
     @JoinColumn()
     user: User[]
 
-    @OneToMany( () => Transaction, (transaction) => transaction.wallet)
-    @JoinColumn()
+    @OneToMany(()=>Transaction, (transaction)=>transaction.wallet)
     transaction: Transaction[]
 }

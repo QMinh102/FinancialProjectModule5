@@ -2,6 +2,7 @@ import { Request,Response } from "express";
 import transactionService from "../services/transactionService";
 import walletService from "../services/walletService";
 import categoryService from "../services/categoryService";
+import { getToken } from "./walletController";
 class TransactionController {
     private transactionService;
     private walletService;
@@ -100,7 +101,7 @@ class TransactionController {
 
     //Tổng thu và chi total
     getTotalIncomeAndExpense = async (req:Request,res:Response)=>{
-        let userId = req['decode'].userId
+        let userId = await getToken(req,res)
         let totalIncomeAndExpense= await this.transactionService.getTotalIncomeAndExpenseService(userId);
         res.status(200).json(totalIncomeAndExpense);
     }
@@ -108,7 +109,7 @@ class TransactionController {
     //Tổng thu và chi theo từng tháng của năm
     getTotalIncomeAndExpenseByMonth = async (req:Request,res:Response)=>{
         let year = req.query.year
-        let userId = req['decode'].userId
+        let userId = await getToken(req,res)
         // let userId = 1
         let newData = [];
         await this.transactionService.getTotalIncomeAndExpenseByMonthService(year, userId).then(
@@ -145,13 +146,13 @@ class TransactionController {
 
     getTotalIncomeAndExpenseByEachWallet = async (req:Request,res:Response)=>{
         console.log(4)
-        let userId = req['decode'].userId
+        let userId = await getToken(req,res)
         let totalIncomeAndExpenseByWallet = await this.transactionService.getTotalIncomeAndExpenseByEachWalletService(userId)
         res.status(200).json(totalIncomeAndExpenseByWallet);
     }
     //Tim kiem trong khoang ngay
     getTransactionBetweenTwoDates = async (req:Request,res:Response)=>{
-      let userId = req['decode'].userId;
+        let userId = await getToken(req,res)
       let startDate = req.query.startDate;
       let endDate = req.query.endDate;
       let transactionsBetweenTwoDates = await this.transactionService.getTransactionBetweenTwoDatesService(userId, startDate, endDate);
@@ -160,7 +161,7 @@ class TransactionController {
 
     //Tim kiem theo note cua transaction
     getTransactionByNote = async (req:Request,res:Response)=>{
-        let userId = req['decode'].userId;
+        let userId = await getToken(req,res)
         let note = req.query.note
         let transactionsByNote = await this.transactionService.getTransactionByNoteService(userId, note);
         res.status(200).json(transactionsByNote);
@@ -168,7 +169,7 @@ class TransactionController {
 
     //Tim kiem theo category
     getTransactionByCategory = async (req:Request,res:Response)=>{
-        let userId = req['decode'].userId;
+        let userId = await getToken(req,res)
         let categoryId = req.params.id;
         let transactions = await this.transactionService.getTransactionByCategoryService(userId, categoryId)
         res.status(200).json(transactions);
@@ -177,7 +178,7 @@ class TransactionController {
 
     //Tim kiem theo wallet
     getTransactionByWallet = async (req:Request,res:Response)=>{
-        let userId = req['decode'].userId;
+        let userId = await getToken(req,res)
         let walletId = req.params.id;
         let transactions = await this.transactionService.getTransactionByWalletService(userId, walletId)
         res.status(200).json(transactions);
