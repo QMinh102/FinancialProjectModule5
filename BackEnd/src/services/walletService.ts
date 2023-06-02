@@ -26,11 +26,11 @@ class WalletService {
     }
 
     update = async (id, newWallet) => {
-        await this.walletRepository.update({id: +id}, newWallet);
+        await this.walletRepository.update({id: id}, newWallet);
     }
 
     remove = async (id) => {
-        await this.walletRepository.delete(+id)
+        await this.walletRepository.delete(id)
     }
 
     getTotalOfWallet = async (walletId) => {
