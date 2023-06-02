@@ -23,6 +23,14 @@ class TransactionService {
             });
             return transaction;
         };
+        this.getAllTransactionService = async (idWallet) => {
+            let transactions = await this.transactionRepository.find({
+                where: {
+                    idWallet: idWallet
+                }
+            });
+            return transactions;
+        };
         this.updateOneTransactionService = async (id, updateTransaction) => {
             await this.transactionRepository.update({ id: id }, updateTransaction);
         };
@@ -32,7 +40,6 @@ class TransactionService {
             return totalIncomeAndExpenseOfOneWallet[0];
         };
         this.getTotalIncomeAndExpenseService = async (userId) => {
-            console.log(userId);
             let sql = `select sum(case when category.transactionType = 'income' then transaction.amount else 0 end ) as totalIncome, sum(case when category.transactionType = 'expense' then transaction.amount else 0 end) as totalExpense from transaction inner join wallet on transaction.walletId = wallet.id inner join category on transaction.categoryId = category.id where wallet.userId = ${userId}`;
             let totalIncomeAndExpense = await this.transactionRepository.query(sql);
             return totalIncomeAndExpense[0];
@@ -54,7 +61,10 @@ class TransactionService {
         };
         this.getTransactionByNoteService = async (userId, note) => {
             let sql = "SELECT * FROM transaction INNER JOIN category ON transaction.categoryId = category.id INNER JOIN wallet ON transaction.walletId = wallet.id WHERE transaction.note LIKE ? AND wallet.userId = ?";
-            let transactions = await this.transactionRepository.query(sql, [`%${note}%`, userId]);
+            let transactions = await this.transactionRepository.query(sql, [
+                `%${note}%`,
+                userId,
+            ]);
             return transactions;
         };
         this.getTransactionByCategoryService = async (userId, categoryId) => {

@@ -13,7 +13,6 @@ userRouter.get('/google', passport_1.passportGoogle.authenticate('google', {
     scope: ['profile', 'email']
 }));
 userRouter.get('/google/callback', passport_1.passportGoogle.authenticate('google'), (req, res) => {
-    console.log(1);
     const token = req.user['token'];
     res.json({ token });
 });

@@ -1,12 +1,17 @@
 import {Request, Response} from "express";
 import WalletService from "../services/walletService";
+import jwtDecode from 'jwt-decode';
+
+export const getToken = async (req:Request, res:Response) =>{
+    const decodedToken = await jwtDecode(req.headers.authorization);
+    return decodedToken["userId"];
+}
 
 class WalletController {
-    constructor() {
-    }
+    constructor() {}
 
     getAll = async (req: Request, res: Response) => {
-        let idUser = "getToken"
+        let idUser = await getToken(req,res)
         let allWallet = await WalletService.getAll(idUser);
         res.status(200).json(allWallet);
     }
@@ -18,8 +23,8 @@ class WalletController {
     }
 
     create = async (req: Request, res: Response) => {
-        let idUser = "getToken"
-        req.body.idUser = idUser;
+        let idUser = await getToken(req,res)
+        req.body.user = idUser;
         await WalletService.create(req.body)
         res.status(204).json({message: "create wallet success"});
     }

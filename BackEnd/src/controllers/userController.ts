@@ -12,10 +12,17 @@ class UserController {
         this.userService = userService;
     }
 
-
+    getUser = async (req:Request, res:Response) => {
+        let id = "token . id "
+        let user = await this.userService.getUser(id)
+        res.status(200).json(user)
+    }
     signup = async (req: Request, res: Response) => {
         let user = req.body
+        console.log(user)
         let userCheck = await this.userService.checkUser(req.body)
+        console.log(userCheck);
+        
         if (userCheck) {
             res.status(200).json('Username already exits')
         } else {

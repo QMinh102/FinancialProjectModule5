@@ -1,15 +1,11 @@
-import {Router} from "express";
-import userRouter from "./userRouter";
-import walletRouter from "./walletRouter"
+import { Router } from "express";
 import categoryRouter from "./categoryRouter";
-import transactionRouter from "./transactionRouter";
-
-
+import userRouter from "./userRouter";
+import walletRouter from "./walletRouter";
+import homeRouter from "./homeRouter";
 const router = Router();
-
-router.use("/user", userRouter);
-router.use("/wallet", walletRouter);
 router.use("/category", categoryRouter);
-router.use("/transaction", transactionRouter);
-
+router.use('/wallet', walletRouter);
+router.use('/home', homeRouter)
+router.use('/auth', userRouter);
 export default router;

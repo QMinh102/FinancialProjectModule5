@@ -16,6 +16,9 @@ class UserService {
             });
             return userFind;
         };
+        this.getUser = async (id) => {
+            return await this.userRepository.findOne(id);
+        };
         this.userRepository = data_source_1.AppDataSource.getRepository(user_1.User);
     }
 }

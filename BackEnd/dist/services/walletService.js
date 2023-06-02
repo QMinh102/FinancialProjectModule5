@@ -6,12 +6,11 @@ class WalletService {
     constructor() {
         this.getAll = async (idUser) => {
             return await this.walletRepository.find({
-                where: { userId: idUser },
-                relations: { user: true }
+                where: { user: { id: idUser } }
             });
         };
         this.getOne = async (id) => {
-            return await this.walletRepository.find({
+            return await this.walletRepository.findOne({
                 where: { id: id }
             });
         };
@@ -19,10 +18,10 @@ class WalletService {
             await this.walletRepository.save(newWallet);
         };
         this.update = async (id, newWallet) => {
-            await this.walletRepository.update({ id: id }, newWallet);
+            await this.walletRepository.update({ id: +id }, newWallet);
         };
         this.remove = async (id) => {
-            await this.walletRepository.delete(id);
+            await this.walletRepository.delete(+id);
         };
         this.getTotalOfWallet = async (walletId) => {
             let sql = `select total from wallet where id = ${walletId}`;
