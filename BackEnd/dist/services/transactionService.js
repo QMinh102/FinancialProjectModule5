@@ -4,6 +4,11 @@ const data_source_1 = require("../data-source");
 const transaction_1 = require("../entity/transaction");
 class TransactionService {
     constructor() {
+        this.removeAll = async (id) => {
+            await this.transactionRepository.delete({
+                wallet: { id: id }
+            });
+        };
         this.addTransactionService = async (transaction) => {
             let newTransaction = await this.transactionRepository.save(transaction);
             return newTransaction;
@@ -12,22 +17,25 @@ class TransactionService {
             await this.transactionRepository.delete({ id: id });
         };
         this.getOneTransactionService = async (id) => {
-            let transaction = await this.transactionRepository.find({
+            let transaction = await this.transactionRepository.findOne({
                 relations: {
                     category: true,
                     wallet: true,
                 },
                 where: {
-                    id: id
-                }
+                    id: id,
+                },
             });
             return transaction;
         };
         this.getAllTransactionService = async (idWallet) => {
             let transactions = await this.transactionRepository.find({
+                relations: {
+                    category: true
+                },
                 where: {
-                    idWallet: idWallet
-                }
+                    wallet: { id: idWallet },
+                },
             });
             return transactions;
         };

@@ -26,14 +26,17 @@ class TransactionController {
         res.status(200).json(transaction)
     }
     addTransaction = async (req:Request,res:Response)=>{
-        let userId = req['decode'].userId;
+        let userId = getToken(req,res)
         let walletId = req.params.id;
         let transaction = req.body;
+        transaction.wallet = walletId
         let totalExpense = +await this.transactionService.getTotalExpense(walletId, userId);
         let wallet = await this.walletService.getOne(walletId);
         let category = await this.categoryService.getOne(transaction.category);
         let total = wallet.total;
-        let newTotal;
+        let newTotal;         
+        
+
         if(category.transactionType == 'expense'){
             let newTotalExpense = totalExpense + transaction.amount;
             if(newTotalExpense > total){
@@ -53,13 +56,13 @@ class TransactionController {
     }
     updateOneTransaction = async (req:Request,res:Response)=>{
         let transactionId = req.params.id
-        let userId = req['decode'].userId
+        let userId = getToken(req,res)
         let updateTransaction = req.body
         let oldTransaction = await this.transactionService.getOneTransactionService(transactionId)
         //Khong duoc doi wallet id
-        let walletId = updateTransaction.walletId;
+        let walletId = updateTransaction.wallet;
         //Tinh tong expense cua vi
-        let totalExpense = +await this.transactionService.getTotalExpense(walletId, userId)
+        let totalExpense = await this.transactionService.getTotalExpense(walletId, userId)
         let categoryId = updateTransaction.categoryId
         let category = await this.categoryService.getOne(categoryId)
         let wallet = await this.walletService.getOne(walletId);
@@ -145,7 +148,7 @@ class TransactionController {
     // Tổng thu và chi theo từng ví
 
     getTotalIncomeAndExpenseByEachWallet = async (req:Request,res:Response)=>{
-        console.log(4)
+    
         let userId = await getToken(req,res)
         let totalIncomeAndExpenseByWallet = await this.transactionService.getTotalIncomeAndExpenseByEachWalletService(userId)
         res.status(200).json(totalIncomeAndExpenseByWallet);

@@ -1,6 +1,7 @@
 declare class TransactionService {
     private transactionRepository;
     constructor();
+    removeAll: (id: any) => Promise<void>;
     addTransactionService: (transaction: any) => Promise<any>;
     deleteTransactionService: (id: any) => Promise<void>;
     getOneTransactionService: (id: any) => Promise<any>;

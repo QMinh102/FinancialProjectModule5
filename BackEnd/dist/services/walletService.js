@@ -1,7 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const data_source_1 = require("../data-source");
 const wallet_1 = require("../entity/wallet");
+const transactionService_1 = __importDefault(require("./transactionService"));
 class WalletService {
     constructor() {
         this.getAll = async (idUser) => {
@@ -18,10 +22,11 @@ class WalletService {
             await this.walletRepository.save(newWallet);
         };
         this.update = async (id, newWallet) => {
-            await this.walletRepository.update({ id: +id }, newWallet);
+            await this.walletRepository.update({ id: id }, newWallet);
         };
         this.remove = async (id) => {
-            await this.walletRepository.delete(+id);
+            await transactionService_1.default.removeAll(id);
+            await this.walletRepository.delete(id);
         };
         this.getTotalOfWallet = async (walletId) => {
             let sql = `select total from wallet where id = ${walletId}`;

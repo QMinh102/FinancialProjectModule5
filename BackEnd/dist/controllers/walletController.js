@@ -31,6 +31,7 @@ class WalletController {
         };
         this.update = async (req, res) => {
             let id = req.query.id;
+            console.log(req.body, id);
             await walletService_1.default.update(id, req.body);
             res.status(204).json({ message: "update wallet success" });
         };

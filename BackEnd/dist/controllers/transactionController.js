@@ -20,9 +20,10 @@ class TransactionController {
             res.status(200).json(transaction);
         };
         this.addTransaction = async (req, res) => {
-            let userId = req['decode'].userId;
+            let userId = (0, walletController_1.getToken)(req, res);
             let walletId = req.params.id;
             let transaction = req.body;
+            transaction.wallet = walletId;
             let totalExpense = +await this.transactionService.getTotalExpense(walletId, userId);
             let wallet = await this.walletService.getOne(walletId);
             let category = await this.categoryService.getOne(transaction.category);
@@ -49,11 +50,11 @@ class TransactionController {
         };
         this.updateOneTransaction = async (req, res) => {
             let transactionId = req.params.id;
-            let userId = req['decode'].userId;
+            let userId = (0, walletController_1.getToken)(req, res);
             let updateTransaction = req.body;
             let oldTransaction = await this.transactionService.getOneTransactionService(transactionId);
-            let walletId = updateTransaction.walletId;
-            let totalExpense = +await this.transactionService.getTotalExpense(walletId, userId);
+            let walletId = updateTransaction.wallet;
+            let totalExpense = await this.transactionService.getTotalExpense(walletId, userId);
             let categoryId = updateTransaction.categoryId;
             let category = await this.categoryService.getOne(categoryId);
             let wallet = await this.walletService.getOne(walletId);
@@ -124,7 +125,6 @@ class TransactionController {
             res.status(200).json(newData);
         };
         this.getTotalIncomeAndExpenseByEachWallet = async (req, res) => {
-            console.log(4);
             let userId = await (0, walletController_1.getToken)(req, res);
             let totalIncomeAndExpenseByWallet = await this.transactionService.getTotalIncomeAndExpenseByEachWalletService(userId);
             res.status(200).json(totalIncomeAndExpenseByWallet);
