@@ -59,17 +59,6 @@ class UserController {
     }
 
 
-    googleLogin = async (req: Request, res: Response) => {
-        console.log(req.query, 111)
-        let token = req.query.token;
-        console.log(token, 222)
-        res.status(200).json({
-            token: token,
-        })
-    }
-
-
-
 
     
 
