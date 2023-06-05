@@ -1,6 +1,6 @@
 import {AppDataSource} from "../data-source";
 import {Category} from "../entity/category";
-
+import transactionService from "./transactionService";
 class CategoryService {
   private categoryRepository;
 
@@ -23,14 +23,6 @@ class CategoryService {
   update = async (id, newCategory) => {
     await this.categoryRepository.update({ id: id }, newCategory);
   };
-
-  remove = async (id) => {
-    await this.categoryRepository.delete(id);
-  };
-
-
-
-
 
 }
 

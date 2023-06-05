@@ -5,7 +5,6 @@ declare class CategoryService {
     getOne: (id: any) => Promise<any>;
     create: (newCategory: any) => Promise<void>;
     update: (id: any, newCategory: any) => Promise<void>;
-    remove: (id: any) => Promise<void>;
 }
 declare const _default: CategoryService;
 export default _default;

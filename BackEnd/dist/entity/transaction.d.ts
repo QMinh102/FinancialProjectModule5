@@ -5,6 +5,6 @@ export declare class Transaction {
     amount: number;
     date: string;
     note: string;
-    category: Category[];
-    wallet: Wallet[];
+    category: Category;
+    wallet: Wallet;
 }

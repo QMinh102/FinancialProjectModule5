@@ -16,9 +16,6 @@ class CategoryService {
         this.update = async (id, newCategory) => {
             await this.categoryRepository.update({ id: id }, newCategory);
         };
-        this.remove = async (id) => {
-            await this.categoryRepository.delete(id);
-        };
         this.categoryRepository = data_source_1.AppDataSource.getRepository(category_1.Category);
     }
 }

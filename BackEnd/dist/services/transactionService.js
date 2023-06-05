@@ -4,6 +4,11 @@ const data_source_1 = require("../data-source");
 const transaction_1 = require("../entity/transaction");
 class TransactionService {
     constructor() {
+        this.removeAllByCate = async (id) => {
+            await this.transactionRepository.delete({
+                category: { id: id }
+            });
+        };
         this.removeAll = async (id) => {
             await this.transactionRepository.delete({
                 wallet: { id: id }
@@ -40,7 +45,8 @@ class TransactionService {
             return transactions;
         };
         this.updateOneTransactionService = async (id, updateTransaction) => {
-            await this.transactionRepository.update({ id: id }, updateTransaction);
+            let newTransaction = await this.transactionRepository.update({ id: id }, updateTransaction);
+            return newTransaction;
         };
         this.getTotalIncomeAndExpenseOfOneWalletService = async (id) => {
             let sql = `select sum(case when category.transactionType = 'income' then transaction.amount else 0 end ) as totalIncome, sum(case when category.transactionType = 'expense' then transaction.amount else 0 end) as totalExpense from transaction inner join wallet on transaction.walletId = wallet.id inner join category on transaction.categoryId = category.id where wallet.id = ${id}`;

@@ -34,6 +34,15 @@ class WalletService {
         await this.walletRepository.delete(id)
     }
 
+    updateTotal = async (id,newtotal) =>{
+     
+        console.log('run total update');
+       
+        await this.walletRepository.update(id,{total:newtotal});
+        
+        
+    }
+
     getTotalOfWallet = async (walletId) =>{
         let sql = `select total from wallet where id = ${walletId}`
         let totalOfWallet = await this.walletRepository.query(sql);

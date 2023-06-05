@@ -35,23 +35,23 @@ class TransactionController {
         let category = await this.categoryService.getOne(transaction.category);
         let total = wallet.total;
         let newTotal;         
-        
+        let newTrans={}
 
         if(category.transactionType == 'expense'){
             let newTotalExpense = totalExpense + transaction.amount;
             if(newTotalExpense > total){
                 res.status(200).json({message: "You can not go over your wallet limit"})
             }else{
-                await transactionService.addTransactionService(transaction);
+                newTrans= await transactionService.addTransactionService(transaction);
                 newTotal = total - transaction.amount;
-                await this.walletService.update({id: walletId}, {total: newTotal})
-                res.status(200).json({message: "create transaction success!!"})
+                await this.walletService.updateTotal(walletId, newTotal)
+                res.status(200).json(newTrans)
             }
         }else{
-            await transactionService.addTransactionService(transaction);
+            newTrans = await transactionService.addTransactionService(transaction);
             newTotal = total + transaction.amount;
-            await this.walletService.update({id: walletId}, {total: newTotal})
-            res.status(200).json({message: "Create transaction success!!"})
+            await this.walletService.updateTotal(walletId,  newTotal)
+            res.status(200).json(newTrans)
         }
     }
     updateOneTransaction = async (req:Request,res:Response)=>{
@@ -68,22 +68,33 @@ class TransactionController {
         let wallet = await this.walletService.getOne(walletId);
         let total = wallet.total
         let newTotal;
+        let newtrans= {}
+
+
+        console.log(totalExpense,updateTransaction.amount);
+        
         if(category.transactionType == 'expense'){
             let newTotalExpense = totalExpense - oldTransaction.amount + updateTransaction.amount;
             if(newTotalExpense > total){
                 res.status(200).json({message: "You can not go over your wallet limit"})
             }else{
-                await this.transactionService.updateOneTransactionService(transactionId, updateTransaction)
+                newtrans= await this.transactionService.updateOneTransactionService(transactionId, updateTransaction)
                 // Cập nhật lại total cho wallet
                 newTotal = wallet.total - oldTransaction.amount + updateTransaction.amount
-                await this.walletService.update({id: walletId}, {total: newTotal})
-                res.status(200).json({message: "Update transaction success !!"})
+
+                console.log(wallet.total, oldTransaction.amount,updateTransaction.amount , newTotal);
+                
+                await this.walletService.updateTotal(walletId, newTotal)
+                res.status(200).json(newtrans)
             }
         }else{
-            await this.transactionService.updateOneTransactionService(transactionId, updateTransaction)
+            newtrans= await this.transactionService.updateOneTransactionService(transactionId, updateTransaction)
             newTotal = wallet.total - oldTransaction.amount + updateTransaction.amount
-            await this.walletService.update({id: walletId}, {total: newTotal})
-            res.status(200).json({message: "update transaction success !!"})
+
+            console.log(wallet.total, oldTransaction.amount, updateTransaction.amount , newTotal);
+
+            await this.walletService.updateTotal(walletId,  newTotal)
+            res.status(200).json(newtrans)
         }
     }
 

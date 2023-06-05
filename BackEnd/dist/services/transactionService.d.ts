@@ -1,12 +1,13 @@
 declare class TransactionService {
     private transactionRepository;
     constructor();
+    removeAllByCate: (id: any) => Promise<void>;
     removeAll: (id: any) => Promise<void>;
     addTransactionService: (transaction: any) => Promise<any>;
     deleteTransactionService: (id: any) => Promise<void>;
     getOneTransactionService: (id: any) => Promise<any>;
     getAllTransactionService: (idWallet: any) => Promise<any>;
-    updateOneTransactionService: (id: any, updateTransaction: any) => Promise<void>;
+    updateOneTransactionService: (id: any, updateTransaction: any) => Promise<any>;
     getTotalIncomeAndExpenseOfOneWalletService: (id: any) => Promise<any>;
     getTotalIncomeAndExpenseService: (userId: any) => Promise<any>;
     getTotalIncomeAndExpenseByMonthService: (year: any, userId: any) => Promise<any>;

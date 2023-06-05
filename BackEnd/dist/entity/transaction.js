@@ -34,12 +34,12 @@ __decorate([
 __decorate([
     (0, typeorm_1.ManyToOne)(() => category_1.Category, (category) => category.transaction),
     (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", Array)
+    __metadata("design:type", category_1.Category)
 ], Transaction.prototype, "category", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => wallet_1.Wallet, (wallet) => wallet.transaction),
     (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", Array)
+    __metadata("design:type", wallet_1.Wallet)
 ], Transaction.prototype, "wallet", void 0);
 Transaction = __decorate([
     (0, typeorm_1.Entity)()

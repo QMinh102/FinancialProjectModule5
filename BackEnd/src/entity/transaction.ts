@@ -19,9 +19,9 @@ export class Transaction {
 
     @ManyToOne ( () => Category, (category) => category.transaction)
     @JoinColumn()
-    category: Category[]
+    category: Category
 
     @ManyToOne ( () => Wallet, (wallet) => wallet.transaction)
     @JoinColumn()
-    wallet: Wallet[]
+    wallet: Wallet
 }

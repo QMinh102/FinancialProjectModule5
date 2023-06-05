@@ -8,6 +8,12 @@ class TransactionService {
     this.transactionRepository = AppDataSource.getRepository(Transaction);
   }
 
+  removeAllByCate = async (id) => {
+    await this.transactionRepository.delete({
+        category : {id:id }
+    });
+  };
+
   removeAll = async (id) => {
     await this.transactionRepository.delete({
         wallet : {id:id }
@@ -46,7 +52,8 @@ class TransactionService {
   };
 
   updateOneTransactionService = async (id, updateTransaction) => {
-    await this.transactionRepository.update({ id: id }, updateTransaction);
+    let newTransaction= await this.transactionRepository.update({ id: id }, updateTransaction);
+    return newTransaction
   };
 
   //Tổng thu và chi của từng ví

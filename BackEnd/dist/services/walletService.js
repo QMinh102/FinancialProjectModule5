@@ -28,6 +28,10 @@ class WalletService {
             await transactionService_1.default.removeAll(id);
             await this.walletRepository.delete(id);
         };
+        this.updateTotal = async (id, newtotal) => {
+            console.log('run total update');
+            await this.walletRepository.update(id, { total: newtotal });
+        };
         this.getTotalOfWallet = async (walletId) => {
             let sql = `select total from wallet where id = ${walletId}`;
             let totalOfWallet = await this.walletRepository.query(sql);
