@@ -33,8 +33,7 @@ __decorate([
     __metadata("design:type", Array)
 ], Wallet.prototype, "user", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => transaction_1.Transaction, (transaction) => transaction.wallet),
-    (0, typeorm_1.JoinColumn)(),
+    (0, typeorm_1.OneToMany)(() => transaction_1.Transaction, (transaction) => transaction.wallet),
     __metadata("design:type", Array)
 ], Wallet.prototype, "transaction", void 0);
 Wallet = __decorate([

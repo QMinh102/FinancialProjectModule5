@@ -1,6 +1,6 @@
 import {AppDataSource} from "../data-source";
 import {Wallet} from "../entity/wallet";
-import {query} from "express";
+import transactionService from "./transactionService";
 
 class WalletService {
     private walletRepository;
@@ -11,13 +11,12 @@ class WalletService {
 
     getAll = async (idUser) =>{
         return await this.walletRepository.find({
-            where:{userId : idUser},
-            relations: {user:true}
+            where:{ user: { id: idUser }}
         })
     }
 
     getOne = async (id) =>{
-        return await this.walletRepository.find({
+        return await this.walletRepository.findOne({
             where:{id:id}
         })
     }
@@ -31,6 +30,7 @@ class WalletService {
     }
 
     remove = async (id) =>{
+        await transactionService.removeAll(id)
         await this.walletRepository.delete(id)
     }
 
@@ -39,11 +39,6 @@ class WalletService {
         let totalOfWallet = await this.walletRepository.query(sql);
         return totalOfWallet[0].total
     }
-
-
-
-
-
 
 
 }

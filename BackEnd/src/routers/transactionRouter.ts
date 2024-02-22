@@ -1,18 +1,12 @@
+import { Router } from "express";
 import transactionController from "../controllers/transactionController";
-import {Router} from "express";
+const TransactionRouter = Router();
 
 
-const transactionRouter = Router();
+TransactionRouter.get('/:id',transactionController.getAllTransaction)
+TransactionRouter.get('/one/:id',transactionController.getOneTransaction)
+TransactionRouter.post('/:id',transactionController.addTransaction)
+TransactionRouter.put('/:id',transactionController.updateOneTransaction)
+TransactionRouter.delete('/:id',transactionController.deleteTransaction)
 
-transactionRouter.get('/:id', transactionController.getOneTransaction)
-transactionRouter.post('/add/:id', transactionController.addTransaction)
-transactionRouter.put('/:id',transactionController.updateOneTransaction)
-transactionRouter.delete('/:id', transactionController.deleteTransaction)
-transactionRouter.get('/income-expenditure-comparison/wallet/:id', transactionController.getTotalIncomeAndExpenseOfOneWallet)
-transactionRouter.get('/income-expenditure-comparison/total', transactionController.getTotalIncomeAndExpense);
-transactionRouter.get('/income-expenditure-comparison/by-year', transactionController.getTotalIncomeAndExpenseByMonth);
-transactionRouter.get('/income-expenditure-comparison/by-wallet', transactionController.getTotalIncomeAndExpenseByEachWallet);
-
-
-
-export default transactionRouter;
+export default TransactionRouter;

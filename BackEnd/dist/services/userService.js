@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const data_source_1 = require("../data-source");
 const user_1 = require("../entity/user");
+const data_source_1 = require("../data-source");
 class UserService {
     constructor() {
         this.createNewUser = async (user) => {
@@ -15,6 +15,9 @@ class UserService {
                 }
             });
             return userFind;
+        };
+        this.getUser = async (id) => {
+            return await this.userRepository.findOne(id);
         };
         this.userRepository = data_source_1.AppDataSource.getRepository(user_1.User);
     }

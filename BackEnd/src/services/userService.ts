@@ -24,6 +24,9 @@ class UserService {
         });
         return userFind;
     }
+    getUser = async (id) => {
+        return await this.userRepository.findOne(id)
+    }
 
 
 }
